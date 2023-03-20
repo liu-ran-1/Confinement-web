@@ -21,7 +21,7 @@
             <el-form-item prop="code">
                 <el-input size="normal" type="text" v-model="loginForm.code" auto-complete="off"
                           placeholder="点击图片更换验证码" @keydown.enter.native="submitLogin" style="width: 250px"></el-input>
-                <img :src="vcUrl" @click="updateVerifyCode" alt="" style="cursor: pointer" >
+                <img :src="vcUrl" @click="updateVerifyCode" alt="" style="cursor: pointer">
             </el-form-item>
             <el-checkbox size="normal" class="loginRemember" v-model="checked"></el-checkbox>
             <el-button size="normal" type="primary" style="width: 100%;" @click="submitLogin">登录</el-button>
@@ -38,7 +38,7 @@
         data() {
             return {
                 loading: false,
-                vcUrl: '/bankend/verifyCode?time='+new Date(),
+                vcUrl: '/web/verifyCode?time='+new Date(),
                 loginForm: {
                     username: 'admin',
                     password: '123',
@@ -54,7 +54,7 @@
         },
         methods: {
             updateVerifyCode() {
-                this.vcUrl = '/bankend/verifyCode?time='+new Date();
+                this.vcUrl = '/web/verifyCode?time='+new Date();
             },
             submitLogin() {
                 this.$refs.loginForm.validate((valid) => {
@@ -68,7 +68,7 @@
                                 let path = this.$route.query.redirect;
                                 this.$router.replace((path == '/' || path == undefined) ? '/home' : path);
                             }else{
-                                this.vcUrl = '/bankend/verifyCode?time='+new Date();
+                                this.vcUrl = '/web/verifyCode?time='+new Date();
                             }
                         })
                     } else {

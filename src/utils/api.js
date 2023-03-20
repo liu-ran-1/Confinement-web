@@ -30,7 +30,7 @@ axios.interceptors.response.use(success => {
     return;
 })
 
-let base = 'bankend';
+let base = 'web';
 
 export const postKeyValueRequest = (url, params) => {
     return axios({
