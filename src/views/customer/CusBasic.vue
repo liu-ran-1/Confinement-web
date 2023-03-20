@@ -77,7 +77,7 @@
                         width="55">
                 </el-table-column>
                 <el-table-column
-                        prop="name"
+                        prop="cusName"
                         fixed
                         align="left"
                         label="姓名"
@@ -94,6 +94,12 @@
                         label="入住日期"
                         align="left"
                         width="85">
+                </el-table-column>
+                <el-table-column
+                        prop="endDate"
+                        width="95"
+                        align="left"
+                        label="终止日期">
                 </el-table-column>
                 <el-table-column
                         prop="telphone"
@@ -113,12 +119,7 @@
                         align="left"
                         label="联系地址">
                 </el-table-column>
-                <el-table-column
-                        prop="endDate"
-                        width="95"
-                        align="left"
-                        label="终止日期">
-                </el-table-column>
+
                 <el-table-column
                         prop="favFoodCategory"
                         width="150"
@@ -602,7 +603,7 @@
             },
             initData() {
                 if (!window.sessionStorage.getItem("nations")) {
-                    this.postRequest('/employee/basic/nations').then(resp => {
+                    this.getRequest('/employee/basic/nations').then(resp => {
                         if (resp) {
                             this.nations = resp;
                             window.sessionStorage.setItem("nations", JSON.stringify(resp));
@@ -658,7 +659,7 @@
             },
             initCustomers(type) {
                 this.loading = true;
-                let url = '/customer/basic/?page=' + this.page + '&size=' + this.size;
+                let url = '/customer/basic?page=' + this.page + '&size=' + this.size;
                 if (type && type == 'advanced') {
                     if (this.searchValue.politicId) {
                         url += '&politicId=' + this.searchValue.politicId;
