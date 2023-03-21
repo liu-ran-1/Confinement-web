@@ -350,7 +350,7 @@
                     startDate: "",
                     endDate: "",
                     telphone: "",
-                    email: 1,
+                    email: "",
                     address: "",
                     favFoodCategory:"",
                     forbidFoodCategory:""
@@ -397,7 +397,7 @@
             },
             handleNodeClick(data) {
                 this.inputDepName = data.name;
-                this.emp.departmentId = data.id;
+                this.emp.id = data.id;
                 this.popVisible = !this.popVisible
             },
             showDepView() {
@@ -507,6 +507,7 @@
                     this.loading = false;
                     if (resp) {
                         this.emps = resp.data;
+                        console.log(resp.data)
                         this.total = resp.total;
                     }
                 });
