@@ -218,6 +218,32 @@
                             </el-form-item>
                         </el-col>
                     </el-row>
+                    <el-row>
+                          <el-col :span="6">
+                            <el-form-item label="喜爱食材:" prop="forbidFoodCategory">
+                                <el-select v-model="emp.forbidFoodCategory" placeholder="职位" size="mini" style="width: 150px;" multiple=true>
+                                    <el-option
+                                            v-for="item in foodMaterials"
+                                            :key="item.id"
+                                            :label="item.name"
+                                            :value="item.id">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
+                          </el-col>
+                            <el-col :span="6">
+                            <el-form-item label="禁忌食材:" prop="favFoodCategory">
+                                <el-select v-model="emp.favFoodCategory" placeholder="职位" size="mini" style="width: 150px;" multiple=true>
+                                    <el-option
+                                            v-for="item in foodMaterials"
+                                            :key="item.id"
+                                            :label="item.name"
+                                            :value="item.id">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
                 </el-form>
             </div>
             <span slot="footer" class="dialog-footer">
@@ -240,7 +266,8 @@
                     posId: null,
                     engageForm: null,
                     departmentId: null,
-                    beginDateScope: null
+                    beginDateScope: null,
+                    foodMaterials:null
                 },
                 title: '',
                 importDataBtnText: '导入数据',
@@ -260,6 +287,7 @@
                 size: 10,
                 nations: [],
                 joblevels: [],
+                foodMaterials:[],
                 politicsstatus: [],
                 positions: [],
                 tiptopDegrees: ['本科', '大专', '硕士', '博士', '高中', '初中', '小学', '其他'],
@@ -421,46 +449,22 @@
                 })
             },
             initData() {
-                if (!window.sessionStorage.getItem("nations")) {
-                    this.getRequest('/employee/basic/nations').then(resp => {
+                if (!window.sessionStorage.getItem("foodMaterials")) {
+                    this.getRequest('/food/material').then(resp => {
                         if (resp) {
-                            this.nations = resp;
-                            window.sessionStorage.setItem("nations", JSON.stringify(resp));
+                            this.foodMaterials = resp.data;
+                            console.log('foodmaterial->'+this.foodMaterials)
+                            window.sessionStorage.setItem("foodMaterials", JSON.stringify(resp.data));
                         }
                     })
+                    
                 } else {
-                    this.nations = JSON.parse(window.sessionStorage.getItem("nations"));
+                    this.foodMaterials = JSON.parse(window.sessionStorage.getItem("foodMaterials"));
+                    console.log('foodmarerial--->'+JSON.stringify(this.foodMaterials));
+                    //  window.sessionStorage.setItem("foodMaterials", '');
                 }
-                if (!window.sessionStorage.getItem("joblevels")) {
-                    this.getRequest('/employee/basic/joblevels').then(resp => {
-                        if (resp) {
-                            this.joblevels = resp;
-                            window.sessionStorage.setItem("joblevels", JSON.stringify(resp));
-                        }
-                    })
-                } else {
-                    this.joblevels = JSON.parse(window.sessionStorage.getItem("joblevels"));
-                }
-                if (!window.sessionStorage.getItem("politicsstatus")) {
-                    this.getRequest('/employee/basic/politicsstatus').then(resp => {
-                        if (resp) {
-                            this.politicsstatus = resp;
-                            window.sessionStorage.setItem("politicsstatus", JSON.stringify(resp));
-                        }
-                    })
-                } else {
-                    this.politicsstatus = JSON.parse(window.sessionStorage.getItem("politicsstatus"));
-                }
-                if (!window.sessionStorage.getItem("deps")) {
-                    this.getRequest('/employee/basic/deps').then(resp => {
-                        if (resp) {
-                            this.allDeps = resp;
-                            window.sessionStorage.setItem("deps", JSON.stringify(resp));
-                        }
-                    })
-                } else {
-                    this.allDeps = JSON.parse(window.sessionStorage.getItem("deps"));
-                }
+            
+              
             },
             sizeChange(currentSize) {
                 this.size = currentSize;
