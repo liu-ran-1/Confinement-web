@@ -121,13 +121,14 @@
                 </el-table-column>
 
                 <el-table-column
-                        prop="favFoodCategory"
+                        prop="favSettingName"
                         width="150"
                         align="left"
                         label="喜爱食材种类">
+                        
                 </el-table-column>
                 <el-table-column
-                        prop="forbidFoodCategory"
+                        prop="forbidSettingName"
                         width="150"
                         align="left"
                         label="禁忌食材种类">
@@ -220,8 +221,8 @@
                     </el-row>
                     <el-row>
                           <el-col :span="6">
-                            <el-form-item label="喜爱食材:" prop="forbidFoodCategory">
-                                <el-select v-model="emp.forbidFoodCategory" placeholder="职位" size="mini" style="width: 150px;" multiple=true>
+                            <el-form-item label="喜爱食材:" prop="favFoodCategory">
+                                <el-select v-model="emp.favFoodCategory" placeholder="喜爱食材" size="mini" style="width: 150px;" multiple=true>
                                     <el-option
                                             v-for="item in foodMaterials"
                                             :key="item.id"
@@ -232,8 +233,8 @@
                             </el-form-item>
                           </el-col>
                             <el-col :span="6">
-                            <el-form-item label="禁忌食材:" prop="favFoodCategory">
-                                <el-select v-model="emp.favFoodCategory" placeholder="职位" size="mini" style="width: 150px;" multiple=true>
+                            <el-form-item label="禁忌食材:" prop="forbidFoodCategory">
+                                <el-select v-model="emp.forbidFoodCategory" placeholder="禁忌食材" size="mini" style="width: 150px;" multiple=true>
                                     <el-option
                                             v-for="item in foodMaterials"
                                             :key="item.id"
@@ -449,7 +450,7 @@
                 })
             },
             initData() {
-                if (!window.sessionStorage.getItem("foodMaterials")) {
+                // if (!window.sessionStorage.getItem("foodMaterials")) {
                     this.getRequest('/food/material').then(resp => {
                         if (resp) {
                             this.foodMaterials = resp.data;
@@ -458,11 +459,11 @@
                         }
                     })
                     
-                } else {
-                    this.foodMaterials = JSON.parse(window.sessionStorage.getItem("foodMaterials"));
-                    console.log('foodmarerial--->'+JSON.stringify(this.foodMaterials));
-                    //  window.sessionStorage.setItem("foodMaterials", '');
-                }
+                // } else {
+                //     this.foodMaterials = JSON.parse(window.sessionStorage.getItem("foodMaterials"));
+                //     console.log('foodmarerial--->'+JSON.stringify(this.foodMaterials));
+                //      window.sessionStorage.setItem("foodMaterials", '');
+                // }
             
               
             },
